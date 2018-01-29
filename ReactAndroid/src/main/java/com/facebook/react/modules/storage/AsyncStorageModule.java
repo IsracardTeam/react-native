@@ -27,6 +27,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.ReactConstants;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.common.ModuleDataCleaner;
+import android.os.AsyncTask;
 
 import static com.facebook.react.modules.storage.ReactDatabaseSupplier.KEY_COLUMN;
 import static com.facebook.react.modules.storage.ReactDatabaseSupplier.TABLE_CATALYST;
@@ -143,7 +144,7 @@ public final class AsyncStorageModule
 
         callback.invoke(null, data);
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
@@ -188,7 +189,7 @@ public final class AsyncStorageModule
             statement.clearBindings();
             statement.bindString(1, keyValueArray.getArray(idx).getString(0));
             statement.bindString(2, keyValueArray.getArray(idx).getString(1));
-            statement.execute();
+            statement.execute(AsyncTask.THREAD_POOL_EXECUTOR);
           }
           mReactDatabaseSupplier.get().setTransactionSuccessful();
         } catch (Exception e) {
@@ -210,7 +211,7 @@ public final class AsyncStorageModule
           callback.invoke();
         }
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
@@ -261,7 +262,7 @@ public final class AsyncStorageModule
           callback.invoke();
         }
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
@@ -324,7 +325,7 @@ public final class AsyncStorageModule
           callback.invoke();
         }
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
@@ -347,7 +348,7 @@ public final class AsyncStorageModule
           callback.invoke(AsyncStorageErrorUtil.getError(null, e.getMessage()));
         }
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
@@ -381,7 +382,7 @@ public final class AsyncStorageModule
         }
         callback.invoke(null, data);
       }
-    }.execute();
+    }.execute(AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   /**
